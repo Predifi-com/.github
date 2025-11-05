@@ -11,7 +11,7 @@
 
 **Trade on multiple prediction markets from one unified platform**
 
-[Website](https://predifi.com) • [Documentation](https://docs.predifi.com) • [Twitter](https://twitter.com/predifi) • [Discord](https://discord.gg/predifi)
+[Website](https://predifi.com) • [Documentation](https://docs.predifi.com) • [Twitter](https://twitter.com/predifi_com) • [Discord](https://discord.gg/predifi)
 
 </div>
 
@@ -23,7 +23,7 @@ Predifi is a **cross-chain prediction market aggregator** that enables users to 
 
 ### ✨ Key Features
 
-- 🌐 **Multi-Chain Support** - Trade across Optimism, Base, Polygon, and more
+- 🌐 **Multi-Chain Support** - Trade across Optimism, Base, Polygon, Arbitrum, and more
 - 🔄 **Cross-Chain Bridging** - Seamless USDC transfers via Circle CCTP
 - 💱 **Best Price Execution** - Automatic routing to the best available prices
 - 🛡️ **Smart Contract Security** - Audited contracts with 90%+ test coverage
@@ -46,6 +46,7 @@ graph TB
     subgraph "Predifi Protocol"
         C[API Gateway]
         D[Aggregator Engine]
+        N[Native CLOB]
         E[Fee Calculator]
         F[Redemption Service]
     end
@@ -64,8 +65,10 @@ graph TB
     A --> C
     B --> C
     C --> D
+    C --> N
     D --> E
     D --> G
+    N --> G
     G --> H
     H --> J
     H --> K
@@ -203,13 +206,18 @@ npm run dev
 
 ## 🔐 Security
 
-- ✅ **Smart Contract Audit** - Completed by [Auditor Name]
 - ✅ **Bug Bounty Program** - Up to $50,000 for critical findings
 - ✅ **Open Source** - All code publicly available
 - ✅ **Non-Custodial** - Users always control their funds
 - ✅ **Battle-Tested** - Deployed on multiple testnets
 
-**Found a security issue?** Email us at security@predifi.com
+### 📋 Audit Reports
+
+🔜 **Coming Soon** - Audit reports will be available here once the audit is complete.
+
+We are currently undergoing a comprehensive security audit. Links to full reports will be published here upon completion.
+
+**Found a security issue?** Email us at admin@predifi.com
 
 ---
 
@@ -261,7 +269,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/predifi)
+[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/predifi_com)
 [![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/predifi)
 [![Telegram](https://img.shields.io/badge/Telegram-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/predifi)
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Predifi-com)
@@ -273,8 +281,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Contact
 
 - **Website:** [predifi.com](https://predifi.com)
-- **Email:** hello@predifi.com
-- **Twitter:** [@predifi](https://twitter.com/predifi)
+- **Email:** admin@predifi.com
+- **Twitter:** [@predifi_com](https://twitter.com/predifi_com)
 - **Discord:** [Join our server](https://discord.gg/predifi)
 
 ---
