@@ -231,7 +231,7 @@ We welcome contributions from the community! Here's how you can help:
 4. 📚 **Improve Docs** - Help make our documentation better
 5. 🎨 **Design** - Contribute UI/UX improvements
 
-See our [Contributing Guide](https://github.com/Predifi-com/predifi/blob/main/CONTRIBUTING.md) for details.
+See our [Contributing Guide](https://github.com/Predifi-com/.github/blob/main/CONTRIBUTING.md) for details.
 
 ---
 
