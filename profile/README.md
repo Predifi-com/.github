@@ -26,13 +26,19 @@ Predifi is a **cross-chain prediction market aggregator** that enables users to 
 - 🌐 **Multi-Chain Support** - Trade across Optimism, Base, Polygon, Arbitrum, and more
 - 🔄 **Cross-Chain Bridging** - Seamless USDC transfers via Circle CCTP
 - 💱 **Best Price Execution** - Automatic routing to the best available prices
-- 🛡️ **Smart Contract Security** - Audited contracts with 90%+ test coverage
-- ⚡ **Low Fees** - Only 0.1% trading fee + gas costs (with refunds!)
+- 🛡️ **Smart Contract Security** - High test coverage with ongoing security audits
+- ⚡ **Low Fees** - Competitive trading fees with gas refunds
 - 🏦 **Non-Custodial** - You always control your funds
 
 ---
 
 ## 🏗️ Architecture
+
+Predifi offers two distinct trading models:
+
+### 1️⃣ Aggregator Engine
+
+Routes orders to external venues (Polymarket, Limitless) for best execution.
 
 <div align="center">
 
@@ -43,10 +49,9 @@ graph TB
         B[Mobile App]
     end
     
-    subgraph "Predifi Protocol"
+    subgraph "Aggregator Engine"
         C[API Gateway]
-        D[Aggregator Engine]
-        N[Native CLOB]
+        D[Order Router]
         E[Fee Calculator]
         F[Redemption Service]
     end
@@ -65,10 +70,8 @@ graph TB
     A --> C
     B --> C
     C --> D
-    C --> N
     D --> E
     D --> G
-    N --> G
     G --> H
     H --> J
     H --> K
@@ -79,11 +82,50 @@ graph TB
 
 </div>
 
+### 2️⃣ Native CLOB (Prediction Market)
+
+Our own prediction market with native CLOB implementation.
+
+<div align="center">
+
+```mermaid
+graph TB
+    subgraph "User Interface"
+        A[Web App]
+        B[Mobile App]
+    end
+    
+    subgraph "Native CLOB Engine"
+        C[API Gateway]
+        N[Order Matching Engine]
+        O[Market Creation]
+        P[Settlement Service]
+    end
+    
+    subgraph "Multi-Chain Deployment"
+        Q[Market Contracts]
+        R[Trading Pairs]
+        S[Liquidity Pools]
+    end
+    
+    A --> C
+    B --> C
+    C --> N
+    C --> O
+    N --> Q
+    O --> Q
+    Q --> R
+    R --> S
+    S --> P
+```
+
+</div>
+
 ### 💎 Core Components
 
 | Component | Purpose | Status |
 |-----------|---------|--------|
-| **Smart Contracts** | On-chain settlement & escrow | ✅ Deployed & Audited |
+| **Smart Contracts** | On-chain settlement & escrow | ✅ Deployed (Testnet) |
 | **Backend API** | Order routing & execution | ✅ Production Ready |
 | **Frontend** | User interface | 🔄 In Development |
 | **Mobile App** | iOS/Android support | 📋 Planned |
@@ -206,6 +248,7 @@ npm run dev
 
 ## 🔐 Security
 
+- 🔄 **Security Audit** - Currently in planning phase
 - ✅ **Bug Bounty Program** - Up to $50,000 for critical findings
 - ✅ **Open Source** - All code publicly available
 - ✅ **Non-Custodial** - Users always control their funds
@@ -213,9 +256,9 @@ npm run dev
 
 ### 📋 Audit Reports
 
-🔜 **Coming Soon** - Audit reports will be available here once the audit is complete.
+We are planning a comprehensive security audit for our smart contracts. 
 
-We are currently undergoing a comprehensive security audit. Links to full reports will be published here upon completion.
+🔜 **Coming Soon** - Audit reports will be published here once completed.
 
 **Found a security issue?** Email us at admin@predifi.com
 
