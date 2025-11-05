@@ -149,7 +149,7 @@ graph TB
   <sub>Base Network</sub>
 </td>
 <td align="center" width="33%">
-  <img src="https://predifi.com/favicon.ico" width="50"><br/>
+  <img src="https://avatars.githubusercontent.com/u/241359663?s=200&v=4" width="50"><br/>
   <b>Predifi Native</b><br/>
   <sub>Coming Soon</sub><br/>
   <sub>Multi-Chain</sub>
