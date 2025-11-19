@@ -56,7 +56,7 @@ graph TB
         F[Redemption Service]
     end
     
-    subgraph "Hub Chain - Optimism"
+    subgraph "Hub Chain"
         G[StagingEscrowVault]
         H[SettlementAuthority]
         I[LiquidityVault]
