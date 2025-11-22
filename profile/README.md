@@ -143,7 +143,7 @@ graph TB
   <sub>Polygon Network</sub>
 </td>
 <td align="center" width="33%">
-  <img src="https://limitless.exchange/favicon.ico" width="50"><br/>
+  <img src="https://limitless.exchange/assets/images/logo.svg" width="50"><br/>
   <b>Limitless</b><br/>
   <sub>AMM-based markets</sub><br/>
   <sub>Base Network</sub>
