@@ -23,7 +23,7 @@ Predifi is a **cross-chain prediction market aggregator** that enables users to 
 
 ### ✨ Key Features
 
-- 🌐 **Multi-Chain Support** - Trade across Optimism, Base, Polygon, Arbitrum, and more
+- 🌐 **Multi-Chain Support** - Trade across multiple L1/L2 networks seamlessly
 - 🔄 **Cross-Chain Bridging** - Seamless USDC transfers via Circle CCTP
 - 💱 **Best Price Execution** - Automatic routing to the best available prices
 - 🛡️ **Smart Contract Security** - High test coverage with ongoing security audits
@@ -164,7 +164,7 @@ graph TB
 ### For Users
 
 1. **Connect Wallet** - MetaMask, WalletConnect, or any EOA wallet
-2. **Deposit USDC** - On Optimism mainnet
+2. **Deposit USDC** - On your preferred supported network
 3. **Browse Markets** - See aggregated prices from all venues
 4. **Trade** - Place orders with automatic routing
 5. **Redeem** - Claim winnings directly to your wallet
@@ -239,7 +239,7 @@ npm run dev
 | **Test Coverage** | 90.45% |
 | **Total Tests** | 268 passing |
 | **Smart Contracts** | 12 deployed |
-| **Supported Chains** | 3 (Optimism, Base, Polygon) |
+| **Supported Chains** | 3+ networks |
 | **API Uptime** | 99.9% |
 
 </div>
