@@ -19,45 +19,45 @@ sequenceDiagram
     participant VEN as Venue Router (Polygon/Base)
     participant UAV as User AA (Venue Chain)
 
-    Note over UAA,ESC: Phase 1: Deposit & Reserve
+    Note over UAA,ESC: Phase 1: Deposit and Reserve
     UAA->>ESC: deposit(USDC) + reserve(orderId)
-    Note right of ESC: Funds in _reserved[orderId]<br/>User custody on Arbitrum
+    Note right of ESC: Funds in _reserved[orderId]
     
     Note over ESC,ORC: Phase 2: Trade Intent Emission
     ESC->>ORC: TradeRequested event (orderId)
-    Note right of ORC: Validates signature<br/>Routes to best venue
+    Note right of ORC: Validates signature and routes to venue
     
     Note over ORC,LPV: Phase 3: Liquidity Routing
     ORC->>LPV: route(order) request liquidity
-    Note right of LPV: Protocol/LP capital<br/>NOT user funds
+    Note right of LPV: Protocol/LP capital (NOT user funds)
     
     Note over LPV,CCTP: Phase 4: Cross-Chain Bridge
     LPV->>CCTP: bridgeToVenue(USDC, amount)
-    Note right of CCTP: Circle burns on Arbitrum<br/>Attestation service signs
+    Note right of CCTP: Circle burns on Arbitrum
     
     Note over CCTP,BUF: Phase 5: Venue Liquidity Reception
     CCTP->>BUF: mint(USDC) at venue
-    Note right of BUF: Protocol hot wallet<br/>Capped exposure
+    Note right of BUF: Protocol hot wallet with capped exposure
     
     Note over BUF,VEN: Phase 6: Venue Execution
-    BUF->>VEN: spendTo(USDC) buy YES/NO
-    Note right of VEN: Execute on venue<br/>Protocol bears risk
+    BUF->>VEN: spendTo(USDC) buy YES/NO tokens
+    Note right of VEN: Execute on venue (protocol bears risk)
     
     Note over VEN,UAV: Phase 7: Position Delivery
     VEN->>UAV: forward ERC-1155 tokens
-    Note right of UAV: User receives tokens<br/>Non-custodial
+    Note right of UAV: User receives tokens (non-custodial)
     
     Note over ORC,ESC: Phase 8: Settlement Confirmation
     ORC->>ESC: recordFill(orderId, receipt)
-    Note right of ESC: Verify attestation<br/>CCTP proof or L2-L2
+    Note right of ESC: Verify attestation (CCTP or L2-L2)
     
     Note over ESC,UAA: Phase 9: Final Settlement
     ESC->>UAA: settleDebit(orderId, filled)
-    Note right of ESC: Transfer to LP<br/>Refund unfilled
+    Note right of ESC: Transfer to LP and refund unfilled
     
     Note over VEN,UAV: Phase 10: PnL Realization
-    VEN->>UAV: Market resolves redeem USDC
-    Note right of UAV: User claims winnings<br/>Optional bridge back
+    VEN->>UAV: Market resolves and redeem USDC
+    Note right of UAV: User claims winnings
 ```
 
 ---
