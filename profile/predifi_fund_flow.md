@@ -10,54 +10,54 @@ This document illustrates the complete lifecycle of a trade on Predifi, showing 
 
 ```mermaid
 sequenceDiagram
-    participant UserAA_Arb as User AA<br/>(Arbitrum)
-    participant EscrowAuthority_Arb as Escrow Authority<br/>(Arbitrum)
-    participant Orchestrator as Off-Chain<br/>Orchestrator
-    participant LPVault_Arb as LP Vault<br/>(Arbitrum)
-    participant CCTP as Circle CCTP<br/>(Cross-Chain)
-    participant BufferVault_Venue as Buffer Vault<br/>(Venue Chain)
-    participant VenueRouter as Venue Router<br/>(Polygon/Base)
-    participant UserAA_Venue as User AA<br/>(Venue Chain)
+    participant UAA as User AA (Arbitrum)
+    participant ESC as Escrow Authority (Arbitrum)
+    participant ORC as Off-Chain Orchestrator
+    participant LPV as LP Vault (Arbitrum)
+    participant CCTP as Circle CCTP
+    participant BUF as Buffer Vault (Venue)
+    participant VEN as Venue Router (Polygon/Base)
+    participant UAV as User AA (Venue Chain)
 
-    Note over UserAA_Arb,EscrowAuthority_Arb: Phase 1: Deposit & Reserve (Non-Custodial)
-    UserAA_Arb->>EscrowAuthority_Arb: deposit(USDC) + reserve(orderId, amount, feeCap)
-    Note right of EscrowAuthority_Arb: Funds in _reserved[orderId]<br/>User retains custody on Arbitrum
+    Note over UAA,ESC: Phase 1: Deposit & Reserve
+    UAA->>ESC: deposit(USDC) + reserve(orderId)
+    Note right of ESC: Funds in _reserved[orderId]<br/>User custody on Arbitrum
     
-    Note over EscrowAuthority_Arb,Orchestrator: Phase 2: Trade Intent Emission
-    EscrowAuthority_Arb->>Orchestrator: TradeRequested event (orderId, signed intent)
-    Note right of Orchestrator: Validates signature<br/>Routes to best venue
+    Note over ESC,ORC: Phase 2: Trade Intent Emission
+    ESC->>ORC: TradeRequested event (orderId)
+    Note right of ORC: Validates signature<br/>Routes to best venue
     
-    Note over Orchestrator,LPVault_Arb: Phase 3: Liquidity Routing
-    Orchestrator->>LPVault_Arb: route(order) - request liquidity for venue
-    Note right of LPVault_Arb: Protocol/LP capital<br/>(NOT user funds)
+    Note over ORC,LPV: Phase 3: Liquidity Routing
+    ORC->>LPV: route(order) request liquidity
+    Note right of LPV: Protocol/LP capital<br/>NOT user funds
     
-    Note over LPVault_Arb,CCTP: Phase 4: Cross-Chain Bridge (Protocol Capital Only)
-    LPVault_Arb->>CCTP: bridgeToVenue(USDC, amount, bufferVault)
+    Note over LPV,CCTP: Phase 4: Cross-Chain Bridge
+    LPV->>CCTP: bridgeToVenue(USDC, amount)
     Note right of CCTP: Circle burns on Arbitrum<br/>Attestation service signs
     
-    Note over CCTP,BufferVault_Venue: Phase 5: Venue Liquidity Reception
-    CCTP->>BufferVault_Venue: mint(USDC) at venue chain
-    Note right of BufferVault_Venue: Protocol hot wallet<br/>Capped exposure
+    Note over CCTP,BUF: Phase 5: Venue Liquidity Reception
+    CCTP->>BUF: mint(USDC) at venue
+    Note right of BUF: Protocol hot wallet<br/>Capped exposure
     
-    Note over BufferVault_Venue,VenueRouter: Phase 6: Venue Execution
-    BufferVault_Venue->>VenueRouter: spendTo(USDC) → buy YES/NO tokens
-    Note right of VenueRouter: Execute on Polymarket/Limitless<br/>Slippage/execution risk = protocol
+    Note over BUF,VEN: Phase 6: Venue Execution
+    BUF->>VEN: spendTo(USDC) buy YES/NO
+    Note right of VEN: Execute on venue<br/>Protocol bears risk
     
-    Note over VenueRouter,UserAA_Venue: Phase 7: Position Delivery
-    VenueRouter->>UserAA_Venue: forward ERC-1155 YES/NO tokens
-    Note right of UserAA_Venue: User receives position tokens<br/>Non-custodial on venue
+    Note over VEN,UAV: Phase 7: Position Delivery
+    VEN->>UAV: forward ERC-1155 tokens
+    Note right of UAV: User receives tokens<br/>Non-custodial
     
-    Note over Orchestrator,EscrowAuthority_Arb: Phase 8: Settlement Confirmation (Two-Phase Commit)
-    Orchestrator->>EscrowAuthority_Arb: recordFill(orderId, receipt, signature)
-    Note right of EscrowAuthority_Arb: Verify cross-chain attestation<br/>CCTP proof or L2-L2 message
+    Note over ORC,ESC: Phase 8: Settlement Confirmation
+    ORC->>ESC: recordFill(orderId, receipt)
+    Note right of ESC: Verify attestation<br/>CCTP proof or L2-L2
     
-    Note over EscrowAuthority_Arb,UserAA_Arb: Phase 9: Final Settlement
-    EscrowAuthority_Arb->>UserAA_Arb: settleDebit(orderId, filledAmount) → deduct from _reserved
-    Note right of EscrowAuthority_Arb: Transfer filled notional to LP<br/>Refund unfilled to user._available
+    Note over ESC,UAA: Phase 9: Final Settlement
+    ESC->>UAA: settleDebit(orderId, filled)
+    Note right of ESC: Transfer to LP<br/>Refund unfilled
     
-    Note over VenueRouter,UserAA_Venue: Phase 10: PnL Realization (Market Outcome)
-    VenueRouter->>UserAA_Venue: Market resolves → redeem(winningTokens) → USDC
-    Note right of UserAA_Venue: User claims winnings on venue<br/>Can bridge back to Arbitrum if desired
+    Note over VEN,UAV: Phase 10: PnL Realization
+    VEN->>UAV: Market resolves redeem USDC
+    Note right of UAV: User claims winnings<br/>Optional bridge back
 ```
 
 ---
